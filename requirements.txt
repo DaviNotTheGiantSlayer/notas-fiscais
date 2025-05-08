@@ -1,0 +1,5 @@
+pytesseract
+beautifulsoup4
+requests
+google-auth
+google-api-python-client
