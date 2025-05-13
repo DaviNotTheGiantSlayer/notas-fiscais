@@ -7,18 +7,18 @@ from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 
 warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning);
-chaveDeAcessoGoogleDocs = 'optimal-cabinet-291113-95cb845ead5c.json';
-ESCOPO = ['https://www.googleapis.com/auth/spreadsheets'];
-credenciais = Credentials.from_service_account_file(chaveDeAcessoGoogleDocs, scopes=ESCOPO);
-servico = build('sheets', 'v4', credentials=credenciais);
-idPlanilha = '1RRj1-Qrd3RFoLl8RDfIA8_Q_GYTomjO3mrMTDpvTqCg';    
+googleDocsAcessKey = 'chave-de-acesso-ao-docs.json';
+SCOPE = ['https://www.googleapis.com/auth/spreadsheets'];
+credentials = Credentials.from_service_account_file(googleDocsAcessKey, scopes=SCOPE);
+service = build('sheets', 'v4', credentials=credentials);
+sheetId = 'insira-o-id-da-sua-planilha-aqui';    
 
-def parse(url):
+def parse(url): 
     res = requests.get(url);
     soup = BeautifulSoup(res.text, 'html.parser');
-    nomes = soup.find_all('span', class_='txtTit');
-    precos = soup.find_all('span', class_='valor');
-    return zip(nomes, precos);
+    names = soup.find_all('span', class_='txtTit');
+    prices = soup.find_all('span', class_='valor');
+    return zip(names, prices;
 
 def readRange():
     f = open("range.txt");
@@ -32,14 +32,14 @@ def writeRange(range):
     f.close();
 
 def writeToSheet(url):
-    planilha = servico.spreadsheets();
-    valores = [];
-    for nome, valor in parse(url):
-        valores.append([nome.text.strip(), valor.text.strip()]);
-    corpo = {'values': valores};
+    sheet = service.spreadsheets();
+    values = [];
+    for name, value in parse(url):
+        values.append([name.text.strip(), value.text.strip()]);
+    body = {'values': valores};
     range = readRange();
-    escrever = planilha.values().update(spreadsheetId=idPlanilha, range=f"A{range}", valueInputOption='RAW', body=corpo).execute();
-    writeRange(str(len(valores) + int(range)))
+    write = planilha.values().update(spreadsheetId=sheetId, range=f"A{range}", valueInputOption='RAW', body=body).execute();
+    writeRange(str(len(values) + int(range)))
 
 
 if __name__ == "__main__":
