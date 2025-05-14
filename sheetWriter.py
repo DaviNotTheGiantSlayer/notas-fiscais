@@ -7,11 +7,11 @@ from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 
 warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning);
-googleDocsAcessKey = 'chave-de-acesso-ao-docs.json';
 SCOPE = ['https://www.googleapis.com/auth/spreadsheets'];
 credentials = Credentials.from_service_account_file(googleDocsAcessKey, scopes=SCOPE);
 service = build('sheets', 'v4', credentials=credentials);
-sheetId = 'insira-o-id-da-sua-planilha-aqui';    
+sheetId = 'insira-o-id-da-sua-planilha-aqui';
+googleDocsAcessKey = 'chave-de-acesso-ao-docs.json';
 
 def parse(url): 
     res = requests.get(url);
