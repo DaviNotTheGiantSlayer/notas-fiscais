@@ -27,4 +27,16 @@ Ja o _googleDocsAcessKey_ é o caminho do arquivo que serve como acesso a api de
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/w533wJuilao/0.jpg)](https://www.youtube.com/watch?v=w533wJuilao)
 
-Após baixá-lo basta colocá-lo na pasta do projeto e adicionar seu nome a variável.
+Após baixá-lo basta colocá-lo na pasta do projeto e adicionar seu nome a variável. Com a configuração pronta agora basta lançar os dados das notas fiscais na sua planilha.
+
+# Funcionamento
+
+Para que seja possível ler os dados das suas notas fiscais, basta obter as urls das notas fiscais eletrônicas. Essa url pode ser obtida no QR Code que vem impresso na nota fiscal física:
+
+<h1>
+  <img alt="img_nota_fiscal" title="img_nota_fiscal" src="/img/img_nota_fiscal.png">  
+</h1>
+
+Ao ler essa nota fiscal você obtem essa url. Em posse desa url basta colocá-las no arquivo `notas.txt` e executar o script da seguinte maneira:
+
+`$ python3 sheetWriter.py`
