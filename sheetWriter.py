@@ -6,25 +6,26 @@ import os
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 
+sheetId = 'insira-o-id-da-sua-planilha-aqui';
+googleDocsAcessKey = 'chave-de-acesso-ao-docs.json';
+
 warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning);
 SCOPE = ['https://www.googleapis.com/auth/spreadsheets'];
 credentials = Credentials.from_service_account_file(googleDocsAcessKey, scopes=SCOPE);
 service = build('sheets', 'v4', credentials=credentials);
-sheetId = 'insira-o-id-da-sua-planilha-aqui';
-googleDocsAcessKey = 'chave-de-acesso-ao-docs.json';
 
 def parse(url): 
     res = requests.get(url);
     soup = BeautifulSoup(res.text, 'html.parser');
     names = soup.find_all('span', class_='txtTit');
     prices = soup.find_all('span', class_='valor');
-    return zip(names, prices;
+    return zip(names, prices);
 
-def readRange():
-    f = open("range.txt");
+def read(path):
+    f = open(path);
     value = f.read();
     f.close();
-    return value
+    return value;
 
 def writeRange(range):
     f = open("range.txt", "w");
@@ -36,11 +37,13 @@ def writeToSheet(url):
     values = [];
     for name, value in parse(url):
         values.append([name.text.strip(), value.text.strip()]);
-    body = {'values': valores};
-    range = readRange();
-    write = planilha.values().update(spreadsheetId=sheetId, range=f"A{range}", valueInputOption='RAW', body=body).execute();
+    body = {'values': values};
+    range = read("range.txt");
+    write = sheet.values().update(spreadsheetId=sheetId, range=f"A{range}", valueInputOption='RAW', body=body).execute();
     writeRange(str(len(values) + int(range)))
 
 
 if __name__ == "__main__":
-    writeToSheet('https://www.dfe.ms.gov.br/nfce/qrcode/?p=50250479379491005495651150001523661901823811%7C2%7C1%7C1%7C09A914C4536DC289657B06B93B46B7C2ADB3F711');
+    bills = read("notas.txt").split();
+    for bill in bills:
+        writeToSheet(bill);
