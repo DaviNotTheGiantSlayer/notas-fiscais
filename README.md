@@ -40,3 +40,5 @@ Para que seja possível ler os dados das suas notas fiscais, basta obter as urls
 Ao ler essa nota fiscal você obtem essa url. Em posse desa url basta colocá-las no arquivo `notas.txt` e executar o script da seguinte maneira:
 
 `$ python3 sheetWriter.py`
+
+Ao executar o script a sua planilha será atualizada com os dados da nota fiscal.
